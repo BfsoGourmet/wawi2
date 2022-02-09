@@ -1,1 +1,4 @@
-print('test')
+def testfunc():
+    return 'hehe xd'
+
+print(testfunc())
