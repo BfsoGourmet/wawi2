@@ -59,8 +59,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`products` (
   `categories_id` INT NOT NULL,
   `producers_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Products_categories_idx` (`categories_id` ASC) VISIBLE,
-  INDEX `fk_Products_producers1_idx` (`producers_id` ASC) VISIBLE,
   CONSTRAINT `fk_Products_categories`
     FOREIGN KEY (`categories_id`)
     REFERENCES `mydb`.`categories` (`id`)
@@ -108,8 +106,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`orders` (
   `clients_id` INT NOT NULL,
   `deliverydate` DATE NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_orders_curiers1_idx` (`curiers_id` ASC) VISIBLE,
-  INDEX `fk_orders_clients1_idx` (`clients_id` ASC) VISIBLE,
   CONSTRAINT `fk_orders_curiers1`
     FOREIGN KEY (`curiers_id`)
     REFERENCES `mydb`.`curiers` (`id`)
@@ -131,8 +127,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`orderprodconn` (
   `products_id` INT NOT NULL,
   `orders_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_orderprodconn_products1_idx` (`products_id` ASC) VISIBLE,
-  INDEX `fk_orderprodconn_orders1_idx` (`orders_id` ASC) VISIBLE,
   CONSTRAINT `fk_orderprodconn_products1`
     FOREIGN KEY (`products_id`)
     REFERENCES `mydb`.`products` (`id`)
