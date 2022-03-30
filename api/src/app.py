@@ -16,6 +16,7 @@ conn = MySQL(app)
 # ------------------------------------------ CATEGORIES ------------------------------------------
 
 # @cross_origin
+# get all categories
 @app.route('/wawi/categories', methods=['GET'])
 def list_categories():
     try:
@@ -46,7 +47,7 @@ def list_category(id):
     except Exception as ex:
         raise ex
 
-
+# get category from ID
 @app.route('/wawi/categories/<id>', methods=['GET'])
 def read_category(id):
     try:
@@ -58,7 +59,7 @@ def read_category(id):
     except Exception as ex:
         return jsonify({'message': "Error", 'exit': False})
 
-
+# post category 
 @app.route('/wawi/categories', methods=['POST'])
 def add_category():
     # print(request.json)
@@ -76,7 +77,7 @@ def add_category():
     else:
         return jsonify({'message': "Invalid parameters", 'exit': False})
 
-
+# delete category from id
 @app.route('/wawi/categories/<id>', methods=['DELETE'])
 def delete_category(id):
     try:
@@ -96,6 +97,7 @@ def delete_category(id):
 # ------------------------------------------ PRODUCTS ------------------------------------------
 
 # @cross_origin
+# get all products
 @app.route('/wawi/products', methods=['GET'])
 def list_products():
     try:
@@ -127,41 +129,20 @@ def list_product(id):
     except Exception as ex:
         raise ex
 
-
+# get product from ID
 @app.route('/wawi/products/<id>', methods=['GET'])
 def read_product(id):
     try:
-        product = list_product(id)
-        if product != None:
-            return jsonify({'product': product, 'message': "product found.", 'exit': True})
+        producer = list_product(id)
+        if producer != None:
+            return jsonify({'products': product, 'message': "product found.", 'exit': True})
         else:
-            return jsonify({'message': "product not found.", 'exit': False})
+            return jsonify({'message': "products not found.", 'exit': False})
     except Exception as ex:
         return jsonify({'message': "Error", 'exit': False})
 
 
-@app.route('/wawi/producers', methods=['POST'])
-def add_product():
-    # print(request.json)
-    if (request.json['id'] and request.json['name'] and request.json['number']):
-        try:
-            product = list_product(request.json['id'])
-            if product != None:
-                return jsonify({'message': "product already exists", 'exit': False})
-            else:
-                cursor = conn.connection.cursor()
-                sql = """INSERT INTO producers (id, name, number) 
-                VALUES ({0}, '{1}', '{2}')""".format(request.json['id'],
-                                                     request.json['name'], request.json['number'])
-                cursor.execute(sql)
-                conn.connection.commit()
-                return jsonify({'message': "product added", 'exit': True})
-        except Exception as ex:
-            return jsonify({'message': "Error", 'exit': False})
-    else:
-        return jsonify({'message': "Invalid parameters", 'exit': False})
-
-
+# delete product from ID
 @app.route('/wawi/products/<id>', methods=['DELETE'])
 def delete_product(id):
     try:
@@ -181,6 +162,7 @@ def delete_product(id):
 # ------------------------------------------ PRODUCERS ------------------------------------------
 
 # @cross_origin
+# get all producers
 @app.route('/wawi/producers', methods=['GET'])
 def list_producers():
     try:
@@ -211,7 +193,7 @@ def list_producer(id):
     except Exception as ex:
         raise ex
 
-
+# get producer from ID
 @app.route('/wawi/producers/<id>', methods=['GET'])
 def read_producer(id):
     try:
@@ -223,29 +205,24 @@ def read_producer(id):
     except Exception as ex:
         return jsonify({'message': "Error", 'exit': False})
 
-
+# post producer
 @app.route('/wawi/producers', methods=['POST'])
 def add_producer():
     # print(request.json)
-    if (request.json['id'] and request.json['name'] and request.json['number']):
-        try:
-            producer = list_producer(request.json['id'])
-            if producer != None:
-                return jsonify({'message': "producer already exists", 'exit': False})
-            else:
-                cursor = conn.connection.cursor()
-                sql = """INSERT INTO producers (id, name, number) 
-                VALUES ({0}, '{1}', '{2}')""".format(request.json['id'],
-                                                     request.json['name'], request.json['number'])
-                cursor.execute(sql)
-                conn.connection.commit()
-                return jsonify({'message': "producer added", 'exit': True})
+    if (request.json['name'] and request.json['number']):
+        try:            
+            cursor = conn.connection.cursor()
+            sql = """INSERT INTO producers (name, number) 
+            VALUES ('{1}', '{2}')""".format(request.json['name'], request.json['number'])
+            cursor.execute(sql)
+            conn.connection.commit()
+            return jsonify({'message': "producer added", 'exit': True})
         except Exception as ex:
             return jsonify({'message': "Error", 'exit': False})
     else:
         return jsonify({'message': "Invalid parameters", 'exit': False})
 
-
+# delete producer from ID
 @app.route('/wawi/producers/<id>', methods=['DELETE'])
 def delete_producer(id):
     try:
@@ -254,7 +231,7 @@ def delete_producer(id):
             cursor = conn.connection.cursor()
             sql = "DELETE FROM producers WHERE id = '{0}'".format(id)
             cursor.execute(sql)
-            conn.connection.commit()  # Confirma la acción de eliminación.
+            conn.connection.commit()
             return jsonify({'message': "producer deleted", 'exit': True})
         else:
             return jsonify({'message': "producer not found", 'exit': False})
