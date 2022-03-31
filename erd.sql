@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `categories` (
-  `id` int(11) NOT NULL,
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
   `name` varchar(45) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -37,8 +37,8 @@ CREATE TABLE `categories` (
 -- Daten für Tabelle `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `description`) VALUES
-(0, 'bruhtegorie', 'bruhhhhh');
+INSERT INTO `categories` (`name`, `description`) VALUES
+('bruhtegorie', 'bruhhhhh');
 
 -- --------------------------------------------------------
 
@@ -47,7 +47,7 @@ INSERT INTO `categories` (`id`, `name`, `description`) VALUES
 --
 
 CREATE TABLE `clients` (
-  `id` int(11) NOT NULL,
+  `id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `firstName` varchar(45) DEFAULT NULL,
   `lastName` varchar(45) DEFAULT NULL,
   `phone` varchar(45) DEFAULT NULL,
@@ -58,8 +58,8 @@ CREATE TABLE `clients` (
 -- Daten für Tabelle `clients`
 --
 
-INSERT INTO `clients` (`id`, `firstName`, `lastName`, `phone`, `address`) VALUES
-(0, 'breh', 'broh', '1', '0');
+INSERT INTO `clients` (`firstName`, `lastName`, `phone`, `address`) VALUES
+('breh', 'broh', '1', '0');
 
 -- --------------------------------------------------------
 
@@ -68,7 +68,7 @@ INSERT INTO `clients` (`id`, `firstName`, `lastName`, `phone`, `address`) VALUES
 --
 
 CREATE TABLE `curiers` (
-  `id` int(11) NOT NULL,
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
   `firstName` varchar(45) DEFAULT NULL,
   `lastName` varchar(45) DEFAULT NULL,
   `phone` varchar(45) DEFAULT NULL
@@ -78,8 +78,8 @@ CREATE TABLE `curiers` (
 -- Daten für Tabelle `curiers`
 --
 
-INSERT INTO `curiers` (`id`, `firstName`, `lastName`, `phone`) VALUES
-(0, 'Bruh', 'Tan', '0000000000');
+INSERT INTO `curiers` (`firstName`, `lastName`, `phone`) VALUES
+('Bruh', 'Tan', '0000000000');
 
 -- --------------------------------------------------------
 
@@ -88,7 +88,7 @@ INSERT INTO `curiers` (`id`, `firstName`, `lastName`, `phone`) VALUES
 --
 
 CREATE TABLE `orderprodconn` (
-  `id` int(11) NOT NULL,
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
   `products_id` int(11) NOT NULL,
   `orders_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -97,8 +97,8 @@ CREATE TABLE `orderprodconn` (
 -- Daten für Tabelle `orderprodconn`
 --
 
-INSERT INTO `orderprodconn` (`id`, `products_id`, `orders_id`) VALUES
-(0, 0, 0);
+INSERT INTO `orderprodconn` (`products_id`, `orders_id`) VALUES
+(0, 0);
 
 -- --------------------------------------------------------
 
@@ -107,7 +107,7 @@ INSERT INTO `orderprodconn` (`id`, `products_id`, `orders_id`) VALUES
 --
 
 CREATE TABLE `orders` (
-  `id` int(11) NOT NULL,
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
   `curiers_id` int(11) NOT NULL,
   `clients_id` int(11) NOT NULL,
   `deliverydate` date DEFAULT NULL
@@ -117,8 +117,8 @@ CREATE TABLE `orders` (
 -- Daten für Tabelle `orders`
 --
 
-INSERT INTO `orders` (`id`, `curiers_id`, `clients_id`, `deliverydate`) VALUES
-(0, 0, 0, '2032-03-18');
+INSERT INTO `orders` (`curiers_id`, `clients_id`, `deliverydate`) VALUES
+(0, 0, '2032-03-18');
 
 -- --------------------------------------------------------
 
@@ -127,7 +127,7 @@ INSERT INTO `orders` (`id`, `curiers_id`, `clients_id`, `deliverydate`) VALUES
 --
 
 CREATE TABLE `producers` (
-  `id` int(11) NOT NULL,
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
   `name` varchar(80) DEFAULT NULL,
   `number` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -136,8 +136,8 @@ CREATE TABLE `producers` (
 -- Daten für Tabelle `producers`
 --
 
-INSERT INTO `producers` (`id`, `name`, `number`) VALUES
-(0, 'bruhducer', '079 789 78 89');
+INSERT INTO `producers` (`name`, `number`) VALUES
+('bruhducer', '079 789 78 89');
 
 -- --------------------------------------------------------
 
@@ -146,7 +146,7 @@ INSERT INTO `producers` (`id`, `name`, `number`) VALUES
 --
 
 CREATE TABLE `products` (
-  `id` int(11) NOT NULL,
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
   `productIndex` int(11) DEFAULT NULL,
   `currentliAvailable` varchar(45) DEFAULT NULL,
   `productName` varchar(45) DEFAULT NULL,
@@ -170,58 +170,21 @@ CREATE TABLE `products` (
 -- Daten für Tabelle `products`
 --
 
-INSERT INTO `products` (`id`, `productIndex`, `currentliAvailable`, `productName`, `shortDescription`, `description`, `quantityInStock`, `price`, `seasonalPrice`, `specialPrice`, `creationDate`, `dateOfLastChange`, `vegeterian`, `vegan`, `calories`, `sugar`, `categories_id`, `producers_id`) VALUES
-(0, 5000, '1', 'Bruh.', 'Bruh.', 'Bruh...', 2, 2, 2, 2, '2022-03-01', '2022-03-15', 0, 0, 3, 2, 0, 0);
+INSERT INTO `products` (`productIndex`, `currentliAvailable`, `productName`, `shortDescription`, `description`, `quantityInStock`, `price`, `seasonalPrice`, `specialPrice`, `creationDate`, `dateOfLastChange`, `vegeterian`, `vegan`, `calories`, `sugar`, `categories_id`, `producers_id`) VALUES
+(5000, '1', 'Bruh.', 'Bruh.', 'Bruh...', 2, 2, 2, 2, '2022-03-01', '2022-03-15', 0, 0, 3, 2, 0, 0);
 
---
--- Indizes der exportierten Tabellen
---
 
---
--- Indizes für die Tabelle `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indizes für die Tabelle `clients`
---
-ALTER TABLE `clients`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indizes für die Tabelle `curiers`
---
-ALTER TABLE `curiers`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indizes für die Tabelle `orderprodconn`
---
 ALTER TABLE `orderprodconn`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `fk_orderprodconn_products1` (`products_id`),
   ADD KEY `fk_orderprodconn_orders1` (`orders_id`);
 
---
--- Indizes für die Tabelle `orders`
---
+
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `fk_orders_curiers1` (`curiers_id`),
   ADD KEY `fk_orders_clients1` (`clients_id`);
 
---
--- Indizes für die Tabelle `producers`
---
-ALTER TABLE `producers`
-  ADD PRIMARY KEY (`id`);
 
---
--- Indizes für die Tabelle `products`
---
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `fk_Products_categories` (`categories_id`),
   ADD KEY `fk_Products_producers1` (`producers_id`);
 
